@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { requestMovieDetailsById } from '../../services/api';
 import MovieCast from '../../components/MovieCast/MovieCast';
-import {Routes, Route} from 'react-router-dom';
 const MovieDetailsPage = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
@@ -36,12 +35,12 @@ const MovieDetailsPage = () => {
           <h3>Additional information</h3>
           <ul>
             <li>
-              <Link to='cast'>Cast</Link>
+              <Link to='/cast'>Cast</Link>
             </li>
-            <Routes>
+            {/* <Routes>
             <Route path="/movie/:id/cast" element={<MovieCast movieDetails={movieDetails}/>} />
 
-            </Routes>
+            </Routes> */}
 
             <li>
               <Link to='reviews'>Reviews</Link>
