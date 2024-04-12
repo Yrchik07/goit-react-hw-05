@@ -19,10 +19,30 @@ const requestMoviesByTrending = async () => {
 };
 
 export { requestMoviesByTrending };
-
-const requestMovieDetailsById = async (movieId) => {
+const requestMoviesBySearch = async (query) => {
   try {
-    const response = await axios.get(`${API_URL}/movie/${movieId}`, {
+    const response = await axios.get(`${API_URL}/search/movie`, {
+      params: {
+        query: query,
+      },
+      headers: {
+        Authorization: `Bearer ${ACCESS_KEY}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error receiving the list of the most popular movies:', error);
+    throw error;
+  }
+};
+
+export { requestMoviesBySearch };
+
+
+const requestMovieDetailsById = async (reMovieId) => {
+  try {
+    const response = await axios.get(`${API_URL}/movie/${reMovieId}`, {
       headers: {
         Authorization: `Bearer ${ACCESS_KEY}`,
       },
@@ -36,3 +56,37 @@ const requestMovieDetailsById = async (movieId) => {
 };
 
 export {requestMovieDetailsById };
+
+
+const requestMovieDetailsCast = async (reMovieCastId) => {
+  try {
+    const response = await axios.get(`${API_URL}/movie/${reMovieCastId}/credits`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_KEY}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get a movie details:', error);
+    throw error;
+  }
+};
+
+export {requestMovieDetailsCast };
+const requestMovieDetailsReviews = async (reMovieCastId) => {
+  try {
+    const response = await axios.get(`${API_URL}/movie/${reMovieCastId}/reviews`, {
+      headers: {
+        Authorization: `Bearer ${ACCESS_KEY}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get a movie details:', error);
+    throw error;
+  }
+};
+
+export {requestMovieDetailsReviews };

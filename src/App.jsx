@@ -6,8 +6,6 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import clsx from "clsx";
 import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
-import MovieCast from "./components/MovieCast/MovieCast";
-import MovieReviews from "./components/MovieReviews/MovieReviews";
 
 
 const getNavLinkClassName = ({ isActive }) =>
@@ -32,10 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movie/:id" element={<MovieDetailsPage />} />
-        <Route path="/movie/:id/cast" element={<MovieCast/>} />
-
-        <Route path="/movie/:id/reviews" element={<MovieReviews />} />
+        <Route path="/movie/:id/*" element={<MovieDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>
