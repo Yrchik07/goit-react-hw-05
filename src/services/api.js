@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const ACCESS_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NzIzN2I3NjAxYzczMzU4M2VhZjNkYzIxOTZmMWIwYyIsInN1YiI6IjY2MTQ0MWMxMzNhNTMzMDE3ZDg2MjQ4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w3lC1LFryVgYddnbuQyS1Xqf10uEvVf_SKXpqxgVXTA';
+const ACCESS_KEY =
+  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NzIzN2I3NjAxYzczMzU4M2VhZjNkYzIxOTZmMWIwYyIsInN1YiI6IjY2MTQ0MWMxMzNhNTMzMDE3ZDg2MjQ4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w3lC1LFryVgYddnbuQyS1Xqf10uEvVf_SKXpqxgVXTA';
 const API_URL = 'https://api.themoviedb.org/3';
 
 const requestMoviesByTrending = async () => {
@@ -10,16 +11,19 @@ const requestMoviesByTrending = async () => {
         Authorization: `Bearer ${ACCESS_KEY}`,
       },
     });
-    
+
     return response.data;
   } catch (error) {
-    console.error('Error receiving the list of the most popular movies:', error);
+    console.error(
+      'Error receiving the list of the most popular movies:',
+      error,
+    );
     throw error;
   }
 };
 
 export { requestMoviesByTrending };
-const requestMoviesBySearch = async (query) => {
+const requestMoviesBySearch = async query => {
   try {
     const response = await axios.get(`${API_URL}/search/movie`, {
       params: {
@@ -32,15 +36,17 @@ const requestMoviesBySearch = async (query) => {
 
     return response.data;
   } catch (error) {
-    console.error('Error receiving the list of the most popular movies:', error);
+    console.error(
+      'Error receiving the list of the most popular movies:',
+      error,
+    );
     throw error;
   }
 };
 
 export { requestMoviesBySearch };
 
-
-const requestMovieDetailsById = async (reMovieId) => {
+const requestMovieDetailsById = async reMovieId => {
   try {
     const response = await axios.get(`${API_URL}/movie/${reMovieId}`, {
       headers: {
@@ -55,16 +61,18 @@ const requestMovieDetailsById = async (reMovieId) => {
   }
 };
 
-export {requestMovieDetailsById };
+export { requestMovieDetailsById };
 
-
-const requestMovieDetailsCast = async (reMovieCastId) => {
+const requestMovieDetailsCast = async reMovieCastId => {
   try {
-    const response = await axios.get(`${API_URL}/movie/${reMovieCastId}/credits`, {
-      headers: {
-        Authorization: `Bearer ${ACCESS_KEY}`,
+    const response = await axios.get(
+      `${API_URL}/movie/${reMovieCastId}/credits`,
+      {
+        headers: {
+          Authorization: `Bearer ${ACCESS_KEY}`,
+        },
       },
-    });
+    );
 
     return response.data;
   } catch (error) {
@@ -73,14 +81,17 @@ const requestMovieDetailsCast = async (reMovieCastId) => {
   }
 };
 
-export {requestMovieDetailsCast };
-const requestMovieDetailsReviews = async (reMovieCastId) => {
+export { requestMovieDetailsCast };
+const requestMovieDetailsReviews = async reMovieCastId => {
   try {
-    const response = await axios.get(`${API_URL}/movie/${reMovieCastId}/reviews`, {
-      headers: {
-        Authorization: `Bearer ${ACCESS_KEY}`,
+    const response = await axios.get(
+      `${API_URL}/movie/${reMovieCastId}/reviews`,
+      {
+        headers: {
+          Authorization: `Bearer ${ACCESS_KEY}`,
+        },
       },
-    });
+    );
 
     return response.data;
   } catch (error) {
@@ -89,4 +100,4 @@ const requestMovieDetailsReviews = async (reMovieCastId) => {
   }
 };
 
-export {requestMovieDetailsReviews };
+export { requestMovieDetailsReviews };

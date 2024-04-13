@@ -1,7 +1,6 @@
-
-import { useParams } from "react-router-dom";
-import {requestMovieDetailsCast } from "../../services/api";
-import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import { requestMovieDetailsCast } from '../../services/api';
+import { useEffect, useState } from 'react';
 
 const MovieCast = () => {
   const { id } = useParams();
@@ -20,18 +19,20 @@ const MovieCast = () => {
     fetchMovieDetails();
   }, [id]);
   return (
-      <ul>
-        {movieDetails !== null && movieDetails.cast.map(actor => (
-          
-
-            <li key={actor.id}>
-              <img src={`https://image.tmdb.org/t/p/w500/${actor.profile_path
-}`} width="100" alt={actor.name} />
-<p>{actor.name}</p>
-<p>Character: {actor.character}</p>
+    <ul>
+      {movieDetails !== null &&
+        movieDetails.cast.map(actor => (
+          <li key={actor.id}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
+              width="100"
+              alt={actor.name}
+            />
+            <p>{actor.name}</p>
+            <p>Character: {actor.character}</p>
           </li>
         ))}
-      </ul>
+    </ul>
   );
 };
 

@@ -1,42 +1,41 @@
 import { useEffect, useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { requestMoviesByTrending } from '../../services/api';
-// import MoviesPage from '../MoviesPage/MoviesPage';
-// import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import Loader from '../../components/Loader/Loader';
 
 const HomePage = () => {
   const [results, setResults] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-
     const fetchMovies = async () => {
       try {
+        setIsLoading(true);
         const data = await requestMoviesByTrending();
         setResults(data.results);
       } catch (error) {
         setIsError(true);
       } finally {
         setIsError(false);
-        }
-    }
+        setIsLoading(false);
+      }
+    };
 
     fetchMovies();
   }, []);
   return (
     <div>
       <h1>Trending today</h1>
-      {isError&&<ErrorMessage/>}
-      
+      {isError && <ErrorMessage />}
+      {isLoading && <Loader />}
+
       {Array.isArray(results) &&
-        results.map((result) => {
+        results.map(result => {
           return (
             <li key={result.id}>
-             <NavLink  to={`/movie/${result.id}`}>  
-             {result.title}
-        </NavLink>
-
+              <NavLink to={`/movie/${result.id}`}>{result.title}</NavLink>
             </li>
           );
         })}
