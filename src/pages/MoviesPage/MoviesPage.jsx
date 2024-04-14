@@ -3,17 +3,20 @@ import { Toaster } from 'react-hot-toast';
 import css from './MoviesPage.module.css';
 import { requestMoviesBySearch } from '../../services/api';
 import { ErrorMessage } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 const MoviesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [query, setQuery] = useState('');
+  // const [query, setQuery] = useState('');
   const [isError, setIsError] = useState(false);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
+  const location = useLocation();
 
   useEffect(() => {
-    if (!query.length) return;
+    if (!query) return;
 
     const fetchPhotosByQuery = async () => {
       try {
@@ -37,7 +40,7 @@ const MoviesPage = () => {
 
   const onSubmit = event => {
     event.preventDefault();
-    setQuery(searchTerm);
+    setSearchParams({ query: searchTerm });
   };
 
   const handleChange = event => {
@@ -71,7 +74,9 @@ const MoviesPage = () => {
           results.map(result => {
             return (
               <li key={result.id}>
-                <NavLink to={`/movie/${result.id}`}>{result.title}</NavLink>
+                <NavLink state={location} to={`/movie/${result.id}`}>
+                  {result.title}
+                </NavLink>
               </li>
             );
           })}
