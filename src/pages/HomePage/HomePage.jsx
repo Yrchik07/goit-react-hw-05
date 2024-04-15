@@ -8,7 +8,6 @@ const HomePage = () => {
   const [results, setResults] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     const fetchMovies = async () => {
       try {

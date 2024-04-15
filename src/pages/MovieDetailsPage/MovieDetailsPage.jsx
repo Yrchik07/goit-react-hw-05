@@ -21,7 +21,6 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const location = useLocation();
   const backLinkRef = useRef(location.state ?? '/movies');
-
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
