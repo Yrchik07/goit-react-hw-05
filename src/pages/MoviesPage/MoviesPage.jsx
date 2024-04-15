@@ -3,17 +3,17 @@ import { Toaster } from 'react-hot-toast';
 import css from './MoviesPage.module.css';
 import { requestMoviesBySearch } from '../../services/api';
 import { ErrorMessage } from 'formik';
-import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
+import MovieList from '../../components/MovieList/MovieList';
+
 const MoviesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  // const [query, setQuery] = useState('');
   const [isError, setIsError] = useState(false);
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
-  const location = useLocation();
 
   useEffect(() => {
     if (!query) return;
@@ -70,16 +70,7 @@ const MoviesPage = () => {
 
       <div>
         {isError && <ErrorMessage />}
-        {Array.isArray(results) &&
-          results.map(result => {
-            return (
-              <li key={result.id}>
-                <NavLink state={location} to={`/movie/${result.id}`}>
-                  {result.title}
-                </NavLink>
-              </li>
-            );
-          })}
+        <MovieList results={results} />
       </div>
     </>
   );

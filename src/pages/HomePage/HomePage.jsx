@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { NavLink, useLocation } from 'react-router-dom';
 import { requestMoviesByTrending } from '../../services/api';
 import Loader from '../../components/Loader/Loader';
+import MovieList from '../../components/MovieList/MovieList';
 
 const HomePage = () => {
   const [results, setResults] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -32,16 +31,7 @@ const HomePage = () => {
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
 
-      {Array.isArray(results) &&
-        results.map(result => {
-          return (
-            <li key={result.id}>
-              <NavLink state={location} to={`/movie/${result.id}`}>
-                {result.title}
-              </NavLink>
-            </li>
-          );
-        })}
+      <MovieList results={results} />
     </div>
   );
 };

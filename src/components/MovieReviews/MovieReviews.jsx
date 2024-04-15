@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { requestMovieDetailsReviews } from '../../services/api'; // Потрібно створити цю функцію в файлі api.js
+import { requestMovieDetailsReviews } from '../../services/api';
 
 const MovieReviews = () => {
   const { id } = useParams();
