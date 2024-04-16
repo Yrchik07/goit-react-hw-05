@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import css from './MoviesPage.module.css';
 import { requestMoviesBySearch } from '../../services/api';
-import { ErrorMessage } from 'formik';
 import { useSearchParams } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import MovieList from '../../components/MovieList/MovieList';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const MoviesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,18 +16,18 @@ const MoviesPage = () => {
   const query = searchParams.get('query');
 
   useEffect(() => {
-    if (!query) return;
-
-    const fetchPhotosByQuery = async () => {
+    const fetchMoviesByQuery = async () => {
+      if (!query) return;
       try {
         setIsLoading(true);
         const data = await requestMoviesBySearch(query);
 
         if (data.results.length === 0) {
-          setResults(data.results);
+          setResults([]);
         } else {
-          setResults(prevResults => [...prevResults, ...data.results]);
+          setResults(data.results);
         }
+        setIsError(false);
       } catch (error) {
         setIsError(true);
       } finally {
@@ -35,7 +35,7 @@ const MoviesPage = () => {
       }
     };
 
-    fetchPhotosByQuery();
+    fetchMoviesByQuery();
   }, [query]);
 
   const onSubmit = event => {

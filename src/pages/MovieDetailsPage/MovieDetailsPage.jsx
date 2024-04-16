@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useRef, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -9,22 +9,21 @@ import {
 } from 'react-router-dom';
 import css from './MovieDetailsPage.module.css';
 import { requestMovieDetailsById } from '../../services/api';
-
-const Loader = lazy(() => import('../../components/Loader/Loader'));
 const MovieCast = lazy(() => import('../../components/MovieCast/MovieCast'));
 const MovieReviews = lazy(
   () => import('../../components/MovieReviews/MovieReviews'),
 );
 
 const MovieDetailsPage = () => {
-  const { id } = useParams();
+  const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const location = useLocation();
   const backLinkRef = useRef(location.state ?? '/movies');
+
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const movieDetailsData = await requestMovieDetailsById(id);
+        const movieDetailsData = await requestMovieDetailsById(movieId);
 
         setMovieDetails(movieDetailsData);
       } catch (error) {
@@ -33,7 +32,7 @@ const MovieDetailsPage = () => {
     };
 
     fetchMovieDetails();
-  }, [id]);
+  }, [movieId]);
 
   return (
     <div>
@@ -71,13 +70,11 @@ const MovieDetailsPage = () => {
               <li>
                 <NavLink to="reviews">Reviews</NavLink>
               </li>
-            </ul>
-            <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path="cast" element={<MovieCast />} />
                 <Route path="reviews" element={<MovieReviews />} />
               </Routes>
-            </Suspense>
+            </ul>
           </section>
         </div>
       )}

@@ -3,13 +3,13 @@ import { requestMovieDetailsCast } from '../../services/api';
 import { useEffect, useState } from 'react';
 
 const MovieCast = () => {
-  const { id } = useParams();
+  const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const movieDetailsCast = await requestMovieDetailsCast(id);
+        const movieDetailsCast = await requestMovieDetailsCast(movieId);
         setMovieDetails(movieDetailsCast);
       } catch (error) {
         console.error('Failed to get a movie details:', error);
@@ -17,7 +17,7 @@ const MovieCast = () => {
     };
 
     fetchMovieDetails();
-  }, [id]);
+  }, [movieId]);
   return (
     <ul>
       {movieDetails !== null &&
