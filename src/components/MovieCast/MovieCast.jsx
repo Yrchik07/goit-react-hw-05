@@ -1,15 +1,16 @@
 import { useParams } from 'react-router-dom';
-import { requestMovieDetailsCast } from '../../services/api';
 import { useEffect, useState } from 'react';
+import { requestMovieDetailsCast } from '../../services/api';
 
 const MovieCast = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  console.log('movieDetails: ', movieDetails);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const movieDetailsCast = await requestMovieDetailsCast(movieId);
+        const {movieDetailsCast} = await requestMovieDetailsCast(movieId);
         setMovieDetails(movieDetailsCast);
       } catch (error) {
         console.error('Failed to get a movie details:', error);
