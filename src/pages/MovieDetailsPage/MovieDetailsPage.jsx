@@ -1,18 +1,13 @@
-import { lazy, useEffect, useRef, useState } from 'react';
+import {useEffect, useRef, useState } from 'react';
 import {
+  Outlet,
   Link,
   NavLink,
   useParams,
-  Routes,
-  Route,
   useLocation,
 } from 'react-router-dom';
 import css from './MovieDetailsPage.module.css';
 import { requestMovieDetailsById } from '../../services/api';
-const MovieCast = lazy(() => import('../../components/MovieCast/MovieCast'));
-const MovieReviews = lazy(
-  () => import('../../components/MovieReviews/MovieReviews'),
-);
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -65,17 +60,18 @@ const MovieDetailsPage = () => {
             <h3>Additional information</h3>
             <ul>
               <li>
-                <NavLink to="cast">Cast</NavLink>
+                <NavLink to="cast"
+                 state={{ url: `movie/${movieId}/credits` }}
+                 >
+                  Cast</NavLink>
               </li>
               <li>
-                <NavLink to="reviews">Reviews</NavLink>
+                <NavLink to="reviews" state={{ url: `movie/${movieId}/reviews` }}>
+                  Reviews</NavLink>
               </li>
-              <Routes>
-                <Route path="cast" element={<MovieCast />} />
-                <Route path="reviews" element={<MovieReviews />} />
-              </Routes>
             </ul>
           </section>
+          <Outlet />
         </div>
       )}
     </div>
