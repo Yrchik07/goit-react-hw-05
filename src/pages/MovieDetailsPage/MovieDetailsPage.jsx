@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState } from 'react';
+import {Suspense, useEffect, useRef, useState } from 'react';
 import {
   Outlet,
   Link,
@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import css from './MovieDetailsPage.module.css';
 import { requestMovieDetailsById } from '../../services/api';
+import Loader from '../../components/Loader/Loader';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -71,7 +72,9 @@ const MovieDetailsPage = () => {
               </li>
             </ul>
           </section>
-          <Outlet />
+          <Suspense fallback={<Loader />}>
+             <Outlet />
+          </Suspense>
         </div>
       )}
     </div>
