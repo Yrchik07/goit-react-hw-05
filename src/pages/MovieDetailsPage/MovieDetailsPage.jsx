@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState } from 'react';
 import {
+  Outlet,
   Link,
   NavLink,
   useParams,
@@ -59,7 +60,9 @@ const MovieDetailsPage = () => {
             <h3>Additional information</h3>
             <ul>
               <li>
-                <NavLink to="cast" state={{ url: `movie/${movieId}/credits` }}>
+                <NavLink to="cast"
+                 state={{ url: `movie/${movieId}/credits` }}
+                 >
                   Cast</NavLink>
               </li>
               <li>
@@ -68,6 +71,7 @@ const MovieDetailsPage = () => {
               </li>
             </ul>
           </section>
+          <Outlet />
         </div>
       )}
     </div>
